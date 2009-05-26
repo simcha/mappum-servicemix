@@ -112,6 +112,38 @@
 					<groupId>xml-apis</groupId>
 					<artifactId>xml-apis</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-context</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-aop</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-beans</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.servicemix.specs</groupId>
+					<artifactId>org.apache.servicemix.specs.jbi-api-1.0</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.servicemix</groupId>
+					<artifactId>servicemix-utils</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.xbean</groupId>
+					<artifactId>xbean-spring</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.xbean</groupId>
+					<artifactId>xbean-classloader</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
