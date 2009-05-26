@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>pl.ivmx.mappum.servicemix.example</groupId>
+	<artifactId>mappum-example-su</artifactId>
+	<packaging>jbi-service-unit</packaging>
+	<version>${servicemix-mappum-version}</version>
+	<name>Mappum - Example Service Unit for Apache ServiceMix</name>
+	<url>http://www.ivmx.pl</url>
+
+	<parent>
+		<groupId>pl.ivmx.mappum</groupId>
+		<artifactId>servicemix</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<repositories>
+		<repository>
+			<id>apache</id>
+			<name>Apache Repository</name>
+			<url>http://people.apache.org/repo/m2-ibiblio-rsync-repository</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+		<repository>
+			<id>apache.snapshots</id>
+			<name>Apache Snapshots Repository</name>
+			<url>http://people.apache.org/repo/m2-snapshot-repository</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>apache</id>
+			<name>Apache Repository</name>
+			<url>http://people.apache.org/repo/m2-ibiblio-rsync-repository</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</pluginRepository>
+		<pluginRepository>
+			<id>apache.snapshots</id>
+			<name>Apache Snapshots Repository</name>
+			<url>http://people.apache.org/repo/m2-snapshot-repository</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>pl.ivmx.mappum.servicemix</groupId>
+			<artifactId>servicemix-mappum</artifactId>
+			<version>${servicemix-mappum-version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*</include>
+				</includes>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.servicemix.tooling</groupId>
+				<artifactId>jbi-maven-plugin</artifactId>
+				<version>${jbi-maven-plugin-version}</version>
+				<extensions>true</extensions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

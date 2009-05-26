@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:sm="http://servicemix.apache.org/config/1.0"
+       xsi:schemaLocation="
+         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+         http://servicemix.apache.org/config/1.0 http://repo1.maven.org/maven2/org/apache/servicemix/servicemix-core/3.2.3/servicemix-core-3.2.3.xsd
+         http://activemq.org/config/1.0 http://activemq.apache.org/schema/activemq-core.xsd">
+
+  <!-- Run a local ActiveMQ broker for testing -->
+  <broker xmlns="http://activemq.org/config/1.0" brokerName="localhost" persistent="false">
+    <transportConnectors>
+      <transportConnector name="openwire" uri="tcp://localhost:61616"/>
+    </transportConnectors>
+  </broker>
+
+  <!-- Deploy artifacts in ServiceMix -->
+  <sm:container createJmxConnector="false">
+
+    <sm:deployments>
+      <sm:installSharedLibrary groupId="org.apache.servicemix" artifactId="servicemix-shared"/>
+      <sm:installComponent groupId="org.apache.servicemix" artifactId="servicemix-http"/>
+      <sm:installComponent groupId="pl.ivmx.mappum.servicemix" artifactId="servicemix-mappum"/>
+
+      <sm:deployServiceAssembly groupId="pl.ivmx.mappum.servicemix.example" artifactId="mappum-example-sa"/>
+    </sm:deployments>
+
+  </sm:container>
+
+</beans>
+

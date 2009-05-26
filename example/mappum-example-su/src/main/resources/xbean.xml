@@ -1,0 +1,4 @@
+<beans xmlns:mapse="http://pl.ivmx.mappum/1.0" 
+       xmlns:ivmx="http://www.infovidematrix.pl/MappumService">
+  <mapse:endpoint service="ivmx:transform" endpoint="MappumServiceJBIPort" mapFolder="map" schemaFolder="schema"/>
+</beans>

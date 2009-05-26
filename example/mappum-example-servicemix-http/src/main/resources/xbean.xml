@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:http="http://servicemix.apache.org/http/1.0"
+       xmlns:mapse="http://pl.ivmx.mappum/1.0"
+       xmlns:ivmx="http://www.infovidematrix.pl/MappumService"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://servicemix.apache.org/http/1.0 http://servicemix.apache.org/schema/servicemix-http-3.2.3.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+  <http:endpoint service="ivmx:transform"
+                 endpoint="MappumServiceJBIPort"
+                 role="consumer" 
+                 locationURI="http://0.0.0.0:8192/MappumService/"
+                 defaultMep="http://www.w3.org/2004/08/wsdl/in-out"
+                 soap="true"/>
+</beans>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:sm="http://servicemix.apache.org/config/1.0"
+	xmlns:my="http://pl.ivmx.mappum/1.0" xmlns:test="urn:test">
+
+	<sm:container id="jbi" embedded="true" createMBeanServer="false">
+		<sm:activationSpecs>
+			<sm:activationSpec>
+				<sm:component>
+					<my:component>
+						<my:endpoints>
+							<my:endpoint service="test:service" endpoint="endpoint"
+								mapFolder="./target/test-classes/map" schemaFolder="./target/test-classes/schema"
+								generatedClassesFolder="./target/test-classes/generated_classes" />
+						</my:endpoints>
+					</my:component>
+				</sm:component>
+			</sm:activationSpec>
+		</sm:activationSpecs>
+	</sm:container>
+
+</beans>
