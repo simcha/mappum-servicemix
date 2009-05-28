@@ -29,13 +29,15 @@ public class MappumComponentTest extends SpringTestSupport {
 
 		client.sendSync(me);
 
-		logger.debug(me.getError().getMessage());
-
 		if (me.getStatus() != ExchangeStatus.ERROR) {
 			fail("Should return error.");
 		}
+
+		assertNull("Output message must be NULL", me.getOutMessage()
+				.getContent());
+
 		assertTrue("Should return error about missing map.", me.getError()
-				.getMessage().contains("not registered for xml mapping"));
+				.getMessage().matches(".*Map for .* not found.*"));
 
 		client.close();
 	}
@@ -93,6 +95,38 @@ public class MappumComponentTest extends SpringTestSupport {
 
 		} else {
 			fail("Missing example xml file with client data.");
+		}
+	}
+
+	public void testAddress2Adresse() throws Exception {
+
+		SourceTransformer sourceTransformer = new SourceTransformer();
+		Source src = getSourceFromClassPath("/data/address.xml");
+
+		if (src != null) {
+
+			DefaultServiceMixClient client = new DefaultServiceMixClient(jbi);
+			InOut me = client.createInOutExchange();
+			me.setService(new QName("urn:test", "service"));
+
+			me.getInMessage().setContent(src);
+			me.setProperty("map_name", "address");
+
+			client.sendSync(me);
+
+			assertNotNull("Output message can't be NULL", me.getOutMessage()
+					.getContent());
+
+			String dst = sourceTransformer.toString(me.getOutMessage()
+					.getContent());
+
+			assertTrue("'address' not converted to 'adresse'", dst
+					.contains("<adresse>"));
+
+			client.done(me);
+
+		} else {
+			fail("Missing example xml file with 'Address' data.");
 		}
 	}
 

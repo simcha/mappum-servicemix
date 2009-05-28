@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.jbi.management.DeploymentException;
 import javax.jbi.messaging.ExchangeStatus;
@@ -72,9 +74,18 @@ public class MappumEndpoint extends ProviderEndpoint {
 				SourceTransformer sourceTransformer = new SourceTransformer();
 				String inMessage = sourceTransformer.toString(in.getContent());
 
-				String mappumRubyScript = "def mappum(xml)\n"
+//				Set propertyNames = exchange.getPropertyNames();
+//				for (Iterator it = propertyNames.iterator(); it.hasNext();) {
+//					String propertyName = (String) it.next();
+//					logger.debug("Received property " + propertyName + "="
+//							+ exchange.getProperty(propertyName));
+//				}
+
+				String mapName = (String) exchange.getProperty("map_name");
+
+				String mappumRubyScript = "def mappum(xml,map)\n"
 						+ "rt = Mappum::XmlTransform.new()\n"
-						+ "content = rt.transform(xml)\n" + "end";
+						+ "content = rt.transform(xml,map)\n" + "end";
 
 				try {
 					logger.debug("IN MESSAGE:\n" + inMessage);
@@ -82,7 +93,7 @@ public class MappumEndpoint extends ProviderEndpoint {
 					engine.eval(mappumRubyScript);
 					Invocable invEngine = (Invocable) engine;
 					String outMessage = (String) invEngine.invokeFunction(
-							"mappum", inMessage);
+							"mappum", inMessage, mapName);
 
 					out.setContent(new StringSource(outMessage));
 
