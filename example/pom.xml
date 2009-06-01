@@ -19,7 +19,9 @@
 
   <modules>
     <module>mappum-example-sa</module>
+    <module>mappum-example-servicemix-camel</module>
     <module>mappum-example-servicemix-http</module>
+    <module>mappum-example-servicemix-file</module>
     <module>mappum-example-su</module>
   </modules>
 

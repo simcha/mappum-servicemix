@@ -23,6 +23,7 @@ public class MappumComponentTest extends SpringTestSupport {
 		DefaultServiceMixClient client = new DefaultServiceMixClient(jbi);
 		InOut me = client.createInOutExchange();
 		me.setService(new QName("urn:test", "service"));
+		me.setOperation(new QName("hello"));
 
 		me.getInMessage().setContent(
 				new StringSource("<hello>mappum rulez!</hello>"));
@@ -52,6 +53,7 @@ public class MappumComponentTest extends SpringTestSupport {
 			DefaultServiceMixClient client = new DefaultServiceMixClient(jbi);
 			InOut me = client.createInOutExchange();
 			me.setService(new QName("urn:test", "service"));
+			me.setOperation(new QName("person"));
 
 			me.getInMessage().setContent(src);
 
@@ -80,6 +82,7 @@ public class MappumComponentTest extends SpringTestSupport {
 			DefaultServiceMixClient client = new DefaultServiceMixClient(jbi);
 			InOut me = client.createInOutExchange();
 			me.setService(new QName("urn:test", "service"));
+			me.setOperation(new QName("client"));
 
 			me.getInMessage().setContent(src);
 
@@ -108,6 +111,7 @@ public class MappumComponentTest extends SpringTestSupport {
 			DefaultServiceMixClient client = new DefaultServiceMixClient(jbi);
 			InOut me = client.createInOutExchange();
 			me.setService(new QName("urn:test", "service"));
+			me.setOperation(new QName("address"));
 
 			me.getInMessage().setContent(src);
 			me.setProperty("map_name", "address");

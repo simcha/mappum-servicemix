@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:f="http://servicemix.apache.org/file/1.0" xmlns:ivmx="http://www.infovidematrix.pl/MappumService"
+	xmlns:sm="http://servicemix.apache.org/config/1.0">
+
+	<f:poller service="ivmx:filePoller" endpoint="poller"
+		targetService="ivmx:camel" targetEndpoint="in" file="${filePoller.dir}"
+		period="60000" recursive="false" autoCreateDirectory="true">
+	</f:poller>
+
+	<f:sender service="ivmx:fileSender" endpoint="sender"
+		directory="${fileSender.dir}" autoCreateDirectory="true">
+<!--
+		<f:marshaler>
+			<bean class="org.apache.servicemix.components.util.DefaultFileMarshaler">
+				<property name="fileName">
+					<bean class="org.apache.servicemix.expression.JAXPStringXPathExpression">
+						<constructor-arg value="concat($name,'.xml')" />
+					</bean>
+				</property>
+			</bean>
+		</f:marshaler>
+-->
+	</f:sender>
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:file.uri.properties" />
+	</bean>
+
+</beans>

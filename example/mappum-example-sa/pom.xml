@@ -124,6 +124,16 @@
 			<artifactId>mappum-example-servicemix-http</artifactId>
 			<version>${servicemix-mappum-version}</version>
 		</dependency>
+		<dependency>
+			<groupId>pl.ivmx.mappum.servicemix.example</groupId>
+			<artifactId>mappum-example-servicemix-file</artifactId>
+			<version>${servicemix-mappum-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>pl.ivmx.mappum.servicemix.example</groupId>
+			<artifactId>mappum-example-servicemix-camel</artifactId>
+			<version>${servicemix-mappum-version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -74,14 +74,11 @@ public class MappumEndpoint extends ProviderEndpoint {
 				SourceTransformer sourceTransformer = new SourceTransformer();
 				String inMessage = sourceTransformer.toString(in.getContent());
 
-//				Set propertyNames = exchange.getPropertyNames();
-//				for (Iterator it = propertyNames.iterator(); it.hasNext();) {
-//					String propertyName = (String) it.next();
-//					logger.debug("Received property " + propertyName + "="
-//							+ exchange.getProperty(propertyName));
-//				}
+				String mapName = null;
 
-				String mapName = (String) exchange.getProperty("map_name");
+				if (exchange.getOperation() != null) {
+					mapName = (String) exchange.getOperation().getLocalPart();
+				}
 
 				String mappumRubyScript = "def mappum(xml,map)\n"
 						+ "rt = Mappum::XmlTransform.new()\n"
