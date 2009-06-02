@@ -29,6 +29,7 @@
     <servicemix-http-version>2008.01</servicemix-http-version>
     <servicemix-file-version>2008.01</servicemix-file-version>
     <servicemix-camel-version>2008.01</servicemix-camel-version>
+    <camel-version>1.4.0</camel-version>
     <jruby-version>1.2.0</jruby-version>
     <jsr223-version>20080611</jsr223-version>
     <soap4r-version>1.5.8</soap4r-version>
