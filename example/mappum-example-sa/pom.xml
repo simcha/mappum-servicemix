@@ -121,6 +121,30 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>${mail-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis</groupId>
+			<artifactId>axis</artifactId>
+			<version>${axis-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.xml</groupId>
+			<artifactId>jaxrpc-api</artifactId>
+			<version>${jaxrpc-api-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-discovery</groupId>
+			<artifactId>commons-discovery</artifactId>
+			<version>${commons-discovery-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>pl.ivmx.mappum.servicemix.example</groupId>
 			<artifactId>mappum-example-su</artifactId>
 			<version>${servicemix-mappum-version}</version>

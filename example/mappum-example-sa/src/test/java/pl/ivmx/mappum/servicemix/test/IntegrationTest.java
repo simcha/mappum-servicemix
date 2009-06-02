@@ -1,16 +1,25 @@
 package pl.ivmx.mappum.servicemix.test;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Writer;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import junit.framework.TestCase;
 
+import org.apache.activemq.broker.BrokerService;
+import org.apache.axis.Message;
+import org.apache.axis.client.Call;
+import org.apache.axis.client.Service;
+import org.apache.axis.message.SOAPEnvelope;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.impl.Log4JLogger;
 import org.apache.servicemix.jbi.util.FileUtil;
@@ -22,11 +31,56 @@ public class IntegrationTest extends TestCase {
 
 	private Log logger = new Log4JLogger(IntegrationTest.class.getName());;
 
-	protected ConfigurableApplicationContext applicationContext;
+	protected static ConfigurableApplicationContext applicationContext;
 
-	private Properties settings = new Properties();
+	private static Properties settings = new Properties();
 
-	public void testDeploy() throws Exception {
+	private static int counter = 0;
+
+	public void testHttpMappum() throws Exception {
+
+		logger.info("PROCESSING... testHttpMappum()");
+
+		counter++;
+
+		try {
+			String endpoint = "http://localhost:8192/MappumService";
+
+			Service service = new Service();
+			Call call = (Call) service.createCall();
+
+			call.setTargetEndpointAddress(new java.net.URL(endpoint));
+			call.setOperationName("person");
+
+			// create XML file in the input directory
+			InputStream is = this.getClass().getClassLoader()
+					.getResourceAsStream("data/person.xml");
+			assertNotNull("Missing input file 'data/person.xml'", is);
+
+			SOAPEnvelope retVal = call.invoke(new Message(is, true));
+
+			assertNotNull("No value returned from web service", retVal);
+			assertNotNull("No soap-body in message returned from web service",
+					retVal.getBody());
+			assertNotNull("Child nodes list in soap-body is null", retVal
+					.getBody().getChildNodes());
+			assertEquals("Soap-body should have only one child element", 1,
+					retVal.getBody().getChildNodes().getLength());
+			assertEquals("Mappum not working - xml not translated", "client",
+					retVal.getBody().getChildNodes().item(0).getLocalName());
+
+		} catch (Exception e) {
+			logger.error("Error when calling web service", e);
+			fail("Error when calling web service");
+		}
+	}
+
+	public void testFileCamelMappum() throws Exception {
+
+		logger.info("PROCESSING... testFileCamelMappum()");
+
+		counter++;
+
 		settings = (Properties) applicationContext.getBean("settings");
 		String inputDir = settings.getProperty("filePoller.dir");
 		String outputDir = settings.getProperty("fileSender.dir");
@@ -101,20 +155,47 @@ public class IntegrationTest extends TestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		FileUtil.deleteFile(new File("rootDir"));
 		super.setUp();
-		applicationContext = createApplicationContext();
-		assertNotNull("Could not create the applicationContext!",
-				applicationContext);
-		applicationContext.start();
+
+		logger.info("counter = " + counter);
+
+		if (counter == 0) {
+			logger.info("STARTING UP APPLICATION CONTEXT...");
+			FileUtil.deleteFile(new File("rootDir"));
+			applicationContext = createApplicationContext();
+			assertNotNull("Could not create the applicationContext!",
+					applicationContext);
+			applicationContext.start();
+			logger.info("...APPLICATION CONTEXT STARTED");
+		}
 	}
 
 	@Override
 	protected void tearDown() throws Exception {
-		if (applicationContext != null) {
-			applicationContext.stop();
-		}
 		super.tearDown();
+
+		logger.info("counter = " + counter);
+
+		if (counter == 2) {
+			logger.info("STOPPING APPLICATION CONTEXT...");
+			if (applicationContext != null) {
+				applicationContext.stop();
+
+				Map brokers = applicationContext
+						.getBeansOfType(BrokerService.class);
+				if (!brokers.isEmpty()) {
+					Set keys = brokers.keySet();
+					Iterator it = keys.iterator();
+					Object key = it.next();
+					BrokerService broker = (BrokerService) brokers.get(key);
+					logger.info("\tSTOPPING BROKER " + broker + "...");
+					broker.stop();
+					logger.info("\t...BROKER " + broker + " STOPPED");
+				}
+
+				logger.info("...APPLICATION CONTEXT STOPPED");
+			}
+		}
 	}
 
 	protected ConfigurableApplicationContext createApplicationContext()
