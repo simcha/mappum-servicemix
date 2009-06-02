@@ -1,34 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:sm="http://servicemix.apache.org/config/1.0"
-       xsi:schemaLocation="
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sm="http://servicemix.apache.org/config/1.0"
+	xsi:schemaLocation="
          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
          http://servicemix.apache.org/config/1.0 http://repo1.maven.org/maven2/org/apache/servicemix/servicemix-core/3.2.3/servicemix-core-3.2.3.xsd
          http://activemq.org/config/1.0 http://activemq.apache.org/schema/activemq-core.xsd">
 
-  <!-- Run a local ActiveMQ broker for testing -->
-  <broker xmlns="http://activemq.org/config/1.0" brokerName="localhost" persistent="false">
-    <transportConnectors>
-      <transportConnector name="openwire" uri="tcp://localhost:61616"/>
-    </transportConnectors>
-  </broker>
+	<!-- Run a local ActiveMQ broker for testing -->
+	<broker xmlns="http://activemq.org/config/1.0" brokerName="localhost"
+		persistent="false">
+		<transportConnectors>
+			<transportConnector name="openwire" uri="tcp://localhost:61616" />
+		</transportConnectors>
+	</broker>
 
-  <!-- Deploy artifacts in ServiceMix -->
-  <sm:container createJmxConnector="false">
+	<!-- Deploy artifacts in ServiceMix -->
+	<sm:container createJmxConnector="false" id="jbi">
 
-    <sm:deployments>
-      <sm:installSharedLibrary groupId="org.apache.servicemix" artifactId="servicemix-shared"/>
+		<sm:deployments>
+			<sm:installSharedLibrary groupId="org.apache.servicemix"
+				artifactId="servicemix-shared" />
 
-      <sm:installComponent groupId="org.apache.servicemix" artifactId="servicemix-http" version="2008.01"/>
-      <sm:installComponent groupId="org.apache.servicemix" artifactId="servicemix-file" version="2008.01"/>
-      <sm:installComponent groupId="org.apache.servicemix" artifactId="servicemix-camel" version="2008.01"/>
-      <sm:installComponent groupId="pl.ivmx.mappum.servicemix" artifactId="servicemix-mappum"/>
+			<sm:installComponent groupId="org.apache.servicemix"
+				artifactId="servicemix-http" version="2008.01" />
+			<sm:installComponent groupId="org.apache.servicemix"
+				artifactId="servicemix-file" version="2008.01" />
+			<sm:installComponent groupId="org.apache.servicemix"
+				artifactId="servicemix-camel" version="2008.01" />
 
-      <sm:deployServiceAssembly groupId="pl.ivmx.mappum.servicemix.example" artifactId="mappum-example-sa"/>
-    </sm:deployments>
+			<sm:installComponent groupId="pl.ivmx.mappum.servicemix"
+				artifactId="servicemix-mappum" />
 
-  </sm:container>
+			<sm:deployServiceAssembly groupId="pl.ivmx.mappum.servicemix.example"
+				artifactId="mappum-example-sa" />
+		</sm:deployments>
+
+	</sm:container>
+
+	<bean id="settings"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location" value="classpath:file.uri.properties" />
+	</bean>
 
 </beans>
 
