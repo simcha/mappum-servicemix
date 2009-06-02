@@ -19,7 +19,10 @@
 
     <sm:deployments>
       <sm:installSharedLibrary groupId="org.apache.servicemix" artifactId="servicemix-shared"/>
-      <sm:installComponent groupId="org.apache.servicemix" artifactId="servicemix-http"/>
+
+      <sm:installComponent groupId="org.apache.servicemix" artifactId="servicemix-http" version="2008.01"/>
+      <sm:installComponent groupId="org.apache.servicemix" artifactId="servicemix-file" version="2008.01"/>
+      <sm:installComponent groupId="org.apache.servicemix" artifactId="servicemix-camel" version="2008.01"/>
       <sm:installComponent groupId="pl.ivmx.mappum.servicemix" artifactId="servicemix-mappum"/>
 
       <sm:deployServiceAssembly groupId="pl.ivmx.mappum.servicemix.example" artifactId="mappum-example-sa"/>
