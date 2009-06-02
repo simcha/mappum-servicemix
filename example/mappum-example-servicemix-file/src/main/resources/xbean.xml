@@ -9,17 +9,15 @@
 
 	<f:sender service="ivmx:fileSender" endpoint="sender"
 		directory="${fileSender.dir}" autoCreateDirectory="true">
-<!--
 		<f:marshaler>
 			<bean class="org.apache.servicemix.components.util.DefaultFileMarshaler">
 				<property name="fileName">
 					<bean class="org.apache.servicemix.expression.JAXPStringXPathExpression">
-						<constructor-arg value="concat($name,'.xml')" />
+						<constructor-arg value="concat(name(//*),'.xml')" />
 					</bean>
 				</property>
 			</bean>
 		</f:marshaler>
--->
 	</f:sender>
 
 	<bean id="propertyConfigurer"
