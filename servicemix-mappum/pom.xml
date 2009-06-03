@@ -156,6 +156,12 @@
 	<build>
 		<plugins>
 			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.servicemix.tooling</groupId>
 				<artifactId>jbi-maven-plugin</artifactId>
 				<version>${jbi-maven-plugin-version}</version>
