@@ -17,14 +17,14 @@ public class MappumComponent extends DefaultComponent {
 	public void shutDown() throws JBIException {
 		super.shutDown();
 
-		logger.debug("MappumComponent.shutDown() called");
+		logger.info("MappumComponent shut down.");
 	}
 
 	@Override
 	public void start() throws JBIException {
 		super.start();
 
-		logger.debug("MappumComponent.start() called");
+		logger.info("MappumComponent started.");
 		logger.info("MappumComponent install root = "
 				+ getComponentContext().getInstallRoot());
 	}
@@ -33,7 +33,7 @@ public class MappumComponent extends DefaultComponent {
 	public void stop() throws JBIException {
 		super.stop();
 
-		logger.debug("MappumComponent.stop() called");
+		logger.debug("MappumComponent stopped.");
 	}
 
 	public MappumEndpoint[] getEndpoints() {

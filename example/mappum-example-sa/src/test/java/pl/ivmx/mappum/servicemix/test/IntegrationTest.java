@@ -20,7 +20,7 @@ import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
 import org.apache.axis.message.SOAPEnvelope;
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.impl.Log4JLogger;
+import org.apache.commons.logging.LogFactory;
 import org.apache.servicemix.jbi.util.FileUtil;
 import org.apache.xbean.spring.context.ClassPathXmlApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -28,7 +28,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 @SuppressWarnings("deprecation")
 public class IntegrationTest extends TestCase {
 
-	private Log logger = new Log4JLogger(IntegrationTest.class.getName());;
+	private final Log logger = LogFactory.getLog(this.getClass());
 
 	protected static ConfigurableApplicationContext applicationContext;
 
@@ -169,6 +169,7 @@ public class IntegrationTest extends TestCase {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void tearDown() throws Exception {
 		super.tearDown();

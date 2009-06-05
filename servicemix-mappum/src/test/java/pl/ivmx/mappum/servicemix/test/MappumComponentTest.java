@@ -5,8 +5,6 @@ import javax.jbi.messaging.InOut;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Source;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.impl.Log4JLogger;
 import org.apache.servicemix.client.DefaultServiceMixClient;
 import org.apache.servicemix.jbi.jaxp.SourceTransformer;
 import org.apache.servicemix.jbi.jaxp.StringSource;
@@ -15,8 +13,6 @@ import org.apache.xbean.spring.context.ClassPathXmlApplicationContext;
 import org.springframework.context.support.AbstractXmlApplicationContext;
 
 public class MappumComponentTest extends SpringTestSupport {
-
-	private Log logger = new Log4JLogger(MappumComponentTest.class.getName());;
 
 	public void testMissingMap() throws Exception {
 
@@ -43,7 +39,7 @@ public class MappumComponentTest extends SpringTestSupport {
 		client.close();
 	}
 
-	public void testPerson2Client() throws Exception {
+	public void testPersonToClient() throws Exception {
 
 		SourceTransformer sourceTransformer = new SourceTransformer();
 		Source src = getSourceFromClassPath("/data/person.xml");
@@ -72,7 +68,7 @@ public class MappumComponentTest extends SpringTestSupport {
 		}
 	}
 
-	public void testClient2Person() throws Exception {
+	public void testClientToPerson() throws Exception {
 
 		SourceTransformer sourceTransformer = new SourceTransformer();
 		Source src = getSourceFromClassPath("/data/client.xml");
@@ -101,7 +97,7 @@ public class MappumComponentTest extends SpringTestSupport {
 		}
 	}
 
-	public void testAddress2Adresse() throws Exception {
+	public void testAddressToAdresse() throws Exception {
 
 		SourceTransformer sourceTransformer = new SourceTransformer();
 		Source src = getSourceFromClassPath("/data/address.xml");
