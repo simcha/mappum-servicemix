@@ -43,12 +43,6 @@ public class MappumEndpoint extends ProviderEndpoint {
 	private String xsd2rubyScriptCode;
 	private Resource xsd2rubyScript;
 
-	public void validate() throws DeploymentException {
-		super.validate();
-
-		logger.info("MappumEndpoint.validate() called");
-	}
-
 	protected void processInOut(MessageExchange exchange, NormalizedMessage in,
 			NormalizedMessage out) throws Exception {
 
@@ -89,8 +83,6 @@ public class MappumEndpoint extends ProviderEndpoint {
 
 					logger.debug("OUT MESSAGE:\n"
 							+ sourceTransformer.toString(out.getContent()));
-
-					getChannel().send(exchange);
 				} catch (ScriptException e) {
 					RaiseException re = (RaiseException) e.getCause();
 					logger.error(re.getException());
@@ -108,21 +100,19 @@ public class MappumEndpoint extends ProviderEndpoint {
 	public void start() throws Exception {
 		super.start();
 
-		logger.debug("MappumEndpoint.start() called");
+		logger.info("MappumEndpoint started");
 	}
 
 	@Override
 	public void stop() throws Exception {
 		super.stop();
 
-		logger.debug("MappumEndpoint.stop() called");
+		logger.info("MappumEndpoint stopped");
 	}
 
 	@Override
 	public synchronized void activate() throws Exception {
 		super.activate();
-
-		logger.debug("MappumEndpoint.activate() called");
 
 		setFullPaths();
 
@@ -134,8 +124,6 @@ public class MappumEndpoint extends ProviderEndpoint {
 				+ getMapFolder() + "\n\tschema folder = " + getSchemaFolder()
 				+ "\n\tgenerated classes folder = "
 				+ getGeneratedClassesFolder());
-
-		// checkConfiguration();
 
 		try {
 			manager = new ScriptEngineManager(serviceUnit
@@ -157,37 +145,15 @@ public class MappumEndpoint extends ProviderEndpoint {
 		// traverseAndGenerateClassesFromXSD(new File(getSchemaFolder()), null);
 
 		generateAndRequire();
+
+		logger.debug("MappumEndpoint activated");
 	}
 
 	@Override
 	public synchronized void deactivate() throws Exception {
 		super.deactivate();
 
-		logger.debug("MappumEndpoint.deactivate() called");
-	}
-
-	@Override
-	protected void done(MessageExchange messageExchange)
-			throws MessagingException {
-		super.done(messageExchange);
-	}
-
-	@Override
-	protected void fail(MessageExchange messageExchange, Exception e)
-			throws MessagingException {
-		super.fail(messageExchange, e);
-	}
-
-	@Override
-	protected void send(MessageExchange messageExchange)
-			throws MessagingException {
-		super.send(messageExchange);
-	}
-
-	@Override
-	protected void sendSync(MessageExchange messageExchange)
-			throws MessagingException {
-		super.sendSync(messageExchange);
+		logger.debug("MappumEndpoint deactivated");
 	}
 
 	public String getMapFolder() {
