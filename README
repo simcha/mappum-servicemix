@@ -1,0 +1,110 @@
+The ServiceMix Mappum service engine component provides support for processing mapping defined using '''mappum''' DSL.
+
+<blockquote>
+{| border="0" cellpadding="10" cellspacing="0" style="background:#FFFF99"
+|-
+!  align=left|Availability
+|-
+|  Note that this component can be used only with ServiceMix releases >= 3.3.
+|}
+
+</blockquote>
+
+
+==What is Mappum==
+
+Mappum is the tree to tree (object, bean etc.) mapping DSL. Mappum homepage can be found here: [http://wiki.github.com/simcha/mappum].
+
+
+==Installation==
+
+Installing the servicemix-mappum component can be done in several ways:
+
+* drop the installer zip in an hotdeploy directory monitored by ServiceMix
+* using [http://servicemix.apache.org/ant-tasks.html ant tasks]
+
+Note that when using ant tasks, the component is not started, you will have to start it manually using ant tasks or a console.
+
+
+==Creation==
+
+You can use Maven to create a service unit.
+
+<pre>
+mvn archetype:create \
+    -DarchetypeGroupId=org.apache.servicemix.tooling \
+    -DarchetypeArtifactId=servicemix-service-unit \
+    -DgroupId=com.mycompany.myproduct \
+    -DartifactId=mycomponent.artifact
+</pre>
+
+Replace <code>com.mycompany.myproduct</code> and <code>mycomponent.artifact</code> with the proper values. After generating Maven project place valid <code>xbean.xml</code> file (containing endpoint defined for <code>servicemix-mappum</code> service engine) in <code>src/main/resources</code> subfolder. Edit <code>pom.xml</code> file and change:
+
+<pre>
+  <properties>
+    <servicemix-version>3.2.3</servicemix-version>
+  </properties>
+</pre>
+
+into:
+
+<pre>
+  <properties>
+    <servicemix-version>3.3</servicemix-version>
+  </properties>
+</pre>
+
+You can also create service unit simply by use the smx-arch tool from ServiceMix's bin folder.
+
+
+==Endpoints==
+
+===Endpoint for InOut MEP===
+
+<blockquote>
+
+<pre>
+<beans xmlns:mapse="http://pl.ivmx.mappum/1.0" 
+       xmlns:ivmx="http://www.infovidematrix.pl/MappumService">
+
+  <mapse:endpoint service="ivmx:transform" endpoint="MappumServiceJBIPort" mapFolder="map" schemaFolder="schema" generatedClassesFolder="generated_classes" />
+
+</beans>
+</pre>
+</blockquote>
+
+===Endpoint attributes===
+
+The following table shows the additional configuration possibilities of the endpoint.
+
+<blockquote>
+{| border="1" cellpadding="4" cellspacing="0"
+|- style="background:grey; color:black"
+!  Name
+!  Type
+!  Description
+!  Mandatory?
+!  Default value
+|-
+|  mapFolder
+|  String
+|  folder containing maps definied in Mappum DSL (maps can be packed in service-unit archive file)
+|  no
+|  ''map''<br>(it means folder with the name "map" placed on the same level in service-unit archive file as "xbean.xml" file)
+|-
+|  schemaFolder
+|  String
+|  folder containing XML schmemas for object types definitions, for which maps are defined
+|  no
+|  ''schema''<br>(it means folder with the name "schema" placed on the same level in service-unit archive file as "xbean.xml" file)
+|-
+|  generatedClassesFolder
+|  String
+|  folder which will contain generated Ruby files for each object type defined in XML Schema files
+|  no
+|  ''generated_classes''<br>(it means folder with the name "generated_classes" in deployment folder)
+|}
+</blockquote>
+
+For all xbean file endpoint configuration take a look at XML schemas.
+
