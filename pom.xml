@@ -39,8 +39,9 @@
     <soap4r-version>1.5.8</soap4r-version>
     <mappum-version>0.1.0</mappum-version>
     <junit-version>3.8.1</junit-version>
+    <saaj-api-version>1.3</saaj-api-version>
     <jbi-maven-plugin-version>4.0</jbi-maven-plugin-version>
-    <jdk-version>1.6</jdk-version>
+    <jdk-version>1.5</jdk-version>
   </properties>
 
   <build>
