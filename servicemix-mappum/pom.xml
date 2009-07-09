@@ -97,6 +97,11 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>javax.script</groupId>
+			<artifactId>script-api</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.servicemix</groupId>
 			<artifactId>servicemix-shared</artifactId>
 			<version>${servicemix-shared-version}</version>
