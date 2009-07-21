@@ -17,7 +17,7 @@
   </modules>
 
   <properties>
-    <servicemix-mappum-version>1.0-SNAPSHOT</servicemix-mappum-version>
+    <servicemix-mappum-version>0.1.0</servicemix-mappum-version>
     <commons-logging-version>1.1</commons-logging-version>
     <log4j-version>1.2.13</log4j-version>
     <xbean-version>3.4.3</xbean-version>
